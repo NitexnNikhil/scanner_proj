@@ -16,9 +16,15 @@
   <div class="container">
     <h1>Upload & Share Securely</h1>
     <form id="uploadForm">
-      <input type="file" id="fileInput" required />
-      <input type="password" id="mpinInput" placeholder="Enter MPIN (Owner Only)" required />
-      <button type="submit">Upload Document</button>
+        <input type="file" id="fileInput" required />
+
+        <input type="password" id="mpinInput"
+               placeholder="Enter MPIN (Owner Only)"
+               required
+               autocomplete="new-password" />
+        
+        <button type="submit">Upload Document</button>
+        
     </form>
     <div id="qrResult" class="qr"></div>
   </div>
