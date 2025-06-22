@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SecureDrive Share</title>
+  <style>
+    body { font-family: 'Segoe UI', sans-serif; background: #f4f4f9; margin: 0; padding: 2rem; text-align: center; }
+    .container { max-width: 600px; margin: auto; background: white; padding: 2rem; box-shadow: 0 2px 10px rgba(0,0,0,0.1); border-radius: 8px; }
+    h1 { color: #333; }
+    input, button { padding: 0.8rem; margin: 1rem 0; width: 100%; border-radius: 4px; border: 1px solid #ccc; }
+    .qr { margin-top: 1rem; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Upload & Share Securely</h1>
+    <form id="uploadForm">
+      <input type="file" id="fileInput" required />
+      <input type="password" id="mpinInput" placeholder="Enter MPIN (Owner Only)" required />
+      <button type="submit">Upload Document</button>
+    </form>
+    <div id="qrResult" class="qr"></div>
+  </div>
+
+  <script>
+    const form = document.getElementById('uploadForm');
+    const qrDiv = document.getElementById('qrResult');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const file = document.getElementById('fileInput').files[0];
+      const mpin = document.getElementById('mpinInput').value;
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('mpin', mpin);
+
+      const res = await fetch('https://your-backend-url/api/upload', {
+        method: 'POST',
+        body: formData
+      });
+
+      const data = await res.json();
+      if (data.qr_url) {
+        qrDiv.innerHTML = `<p><strong>QR Code:</strong></p><img src="${data.qr_url}" width="200"/>`;
+      } else {
+        qrDiv.innerText = 'Upload failed.';
+      }
+    });
+  </script>
+</body>
+</html>
