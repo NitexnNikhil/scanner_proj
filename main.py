@@ -9,7 +9,7 @@ from googleapiclient.http import MediaFileUpload
 
 # === SETTINGS ===
 SCOPES = ['https://www.googleapis.com/auth/drive.file']
-MPIN_HASH = 'a3b75...'  # Use hash_mpin('1234') to generate a secure hash
+MPIN_HASH = 'fe2592b42a727e977f055947385b709cc82b16b9a87f88c6abf3900d65d0cdc3'  # Use hash_mpin('1234') to generate a secure hash
 
 def hash_mpin(mpin):
     return hashlib.sha256(mpin.encode()).hexdigest()
